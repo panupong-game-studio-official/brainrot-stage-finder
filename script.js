@@ -1,0 +1,64 @@
+body {
+    margin: 0;
+    padding: 10px;
+    background-color: #1a1a1a;
+    color: #ffffff;
+    font-family: sans-serif;
+    text-align: center;
+    user-select: none;
+}
+.container {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: #2c2c2c;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+h1 { color: #00ffcc; font-size: 24px; margin-bottom: 5px; }
+.stats {
+    display: flex;
+    justify-content: space-around;
+    background-color: #3d3d3d;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+.screen {
+    background-color: #111;
+    height: 160px;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 2px solid #444;
+    padding: 10px;
+}
+button {
+    background-color: #00ffcc;
+    color: #000;
+    border: none;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+}
+button:active { background-color: #00b38f; }
+button.action-btn { background-color: #ff3366; color: white; }
+button.action-btn:active { background-color: #cc0033; }
+button.upgrade-btn { background-color: #ffcc00; color: black; }
+.brainrot-list {
+    text-align: left;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 120px;
+    overflow-y: auto;
+    font-size: 14px;
+      }
