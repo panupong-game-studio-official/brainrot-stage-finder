@@ -44,7 +44,7 @@ body {
     display: block;
 }
 
-/* ตัวละครนายพราน (ปรับขึ้นมายืนบนทางเดินดินพอดีเป๊ะ ไม่จมพุ่มไม้) */
+/* 🏃 ตัวละครนายพราน: เปลี่ยนมาใช้ระบบกำหนดตำแหน่งจากขอบบน (top) เพื่อความแม่นยำ */
 .player {
     width: 65px; 
     height: 85px; 
@@ -52,7 +52,7 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 85px;  /* บังคับยกตัวละครขึ้นมาสูง 85px ให้อยู่บนพื้นดิน */
+    top: 215px;  /* ✨ จุดสำคัญ: บังคับให้ตัวละครอยู่สูงจากขอบบน 215px ซึ่งเป็นระดับของทางเดินพอดีเป๊ะ */
     left: 100px;  
     z-index: 10;
 }
@@ -68,6 +68,19 @@ button {
     font-size: 20px;
     font-weight: bold;
     background-color: #2e7d32;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px #1b5e20;
+    transition: all 0.1s ease;
+}
+
+button:active {
+    background-color: #1b5e20;
+    transform: translateY(3px);
+    box-shadow: 0 2px #1b5e20;
+}
     color: white;
     border: none;
     border-radius: 10px;
