@@ -13,25 +13,21 @@ function toggleMovement() {
         btnAction.style.backgroundColor = "#c62828"; 
         btnAction.style.boxShadow = "0 4px #7f0000";
         
-        // 🏃 เริ่มให้ฉากหลังขยับ (ทำให้ดูเหมือนวิ่งไปข้างหน้า)
+        // ฉากหลังเลื่อนเร็วขึ้นให้สมกับความเร็วในการวิ่ง
         gameLoop = setInterval(() => {
-            bgPosition -= 5; 
+            bgPosition -= 7; 
             forestBg.style.backgroundPosition = bgPosition + 'px 0px';
         }, 20);
         
-        // 🔄 เริ่มให้สติกแมนขยับขา (ใช้ Class CSS)
         stickman.classList.add('running');
         
     } else {
         isRunning = false;
-        btnAction.innerText = "🏃 กดเพื่อเริ่มวิ่งแบบ Stickman";
+        btnAction.innerText = "🏃 กดเพื่อเริ่มวิ่งแบบ Anger of Stick";
         btnAction.style.backgroundColor = "#2e7d32"; 
         btnAction.style.boxShadow = "0 4px #1b5e20";
         
-        // 🛑 หยุดฉากหลัง
         clearInterval(gameLoop);
-        
-        // 🛑 หยุดสติกแมนขยับขา
         stickman.classList.remove('running');
     }
 }
