@@ -1,73 +1,180 @@
-<!DOCTYPE html>
-<html lang="th">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Brainrot Stage Finder</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 10px;
-            background-color: #1a1a1a;
-            color: #ffffff;
-            font-family: sans-serif;
-            text-align: center;
-            user-select: none;
-        }
-        .container {
-            max-width: 500px;
-            margin: 0 auto;
-            background-color: #2c2c2c;
-            padding: 15px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-        }
-        h1 { color: #00ffcc; font-size: 24px; margin-bottom: 5px; }
-        .stats {
-            display: flex;
-            justify-content: space-around;
-            background-color: #3d3d3d;
-            padding: 10px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-        .screen {
-            background-color: #111;
-            height: 160px;
-            border-radius: 5px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
-            border: 2px solid #444;
-            padding: 10px;
-        }
-        button {
-            background-color: #00ffcc;
-            color: #000;
-            border: none;
-            padding: 12px 20px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 100%;
-            margin-bottom: 10px;
-        }
-        button:active { background-color: #00b38f; }
-        button.action-btn { background-color: #ff3366; color: white; }
-        button.action-btn:active { background-color: #cc0033; }
-        button.upgrade-btn { background-color: #ffcc00; color: black; }
-        .brainrot-list {
-            text-align: left;
-            background-color: #333;
-            padding: 10px;
-            border-radius: 5px;
-            max-height: 120px;
-            overflow-y: auto;
-            font-size: 14px;
+// ตัวแปรระบบเกม
+let money = 0;
+let maxHp = 100;
+let hp = 100;
+let gunDamage = 15;
+let currentStage = 1;
+let distance = 0;
+
+let hpUpgradeCost = 50;
+let gunUpgradeCost = 60;
+
+let inCombat = false;
+let enemyHp = 0;
+let enemyMaxHp = 0;
+
+// รายชื่อ Brainrot ระดับต่างๆ ที่มีโอกาสสุ่มได้
+const brainrotDatabase = [
+    { name: "Skibidi Toilet ขั้นต้น", rate: 1, minStage: 1 },
+    { name: "Camera Man ขยันงาน", rate: 2, minStage: 1 },
+    { name: "Speaker Man ขาแดนซ์", rate: 3, minStage: 1 },
+    { name: "Rizzler นักตึงหน้า", rate: 5, minStage: 2 },
+    { name: "Grimace Shake ลึกลับ", rate: 8, minStage: 2 },
+    { name: "Sigma จอมประหยัด", rate: 12, minStage: 3 },
+    { name: "GigaChad นักแบกโลก", rate: 20, minStage: 3 }
+];
+
+let myWorkers = [];
+
+// ระบบประดิษฐ์เงินอัตโนมัติจากพวก Brainrot (ทำงานทุกๆ 1 วินาที)
+setInterval(() => {
+    if (myWorkers.length > 0) {
+        let income = 0;
+        myWorkers.forEach(w => income += w.rate);
+        money += income;
+        document.getElementById('money').innerText = money;
+    }
+}, 1000);
+
+function updateUI() {
+    document.getElementById('money').innerText = money;
+    document.getElementById('hp').innerText = hp;
+    document.getElementById('max-hp').innerText = maxHp;
+    document.getElementById('hp-cost').innerText = hpUpgradeCost;
+    document.getElementById('gun-cost').innerText = gunUpgradeCost;
+    document.getElementById('worker-count').innerText = myWorkers.length;
+    
+    // อัปเดตชื่อสถานที่ตามระดับด่าน
+    let stageName = `สถานที่ ${currentStage}`;
+    if (currentStage === 1) stageName = "ด่าน 1: ทุ่งหญ้าโอไฮโอ";
+    else if (currentStage === 2) stageName = "ด่าน 2: ห้องแล็บขังอสูร";
+    else if (currentStage === 3) stageName = "ด่าน 3: มหานครซิกม่า";
+    document.getElementById('stage-name').innerText = stageName;
+}
+
+function moveForward() {
+    if (inCombat) return;
+    
+    distance += Math.floor(Math.random() * 15) + 10;
+    
+    if (distance > 200) currentStage = 3;
+    else if (distance > 80) currentStage = 2;
+    else currentStage = 1;
+
+    if (Math.random() < 0.45) {
+        inCombat = true;
+        enemyMaxHp = currentStage * 25 + Math.floor(Math.random() * 20);
+        enemyHp = enemyMaxHp;
+        
+        document.getElementById('game-text').innerText = `⚠️ เจอศัตรูขวางทางใน ด่าน ${currentStage}!`;
+        document.getElementById('enemy-text').innerText = `💥 ศัตรู HP: ${enemyHp}/${enemyMaxHp}`;
+        document.getElementById('btn-move').style.display = 'none';
+        document.getElementById('btn-shoot').style.display = 'block';
+    } else {
+        document.getElementById('game-text').innerText = `🏃 เดินหน้าต่อไป... ระยะทาง: ${distance} เมตร`;
+        document.getElementById('enemy-text').innerText = "";
+    }
+    updateUI();
+}
+
+function shootEnemy() {
+    if (!inCombat) return;
+
+    enemyHp -= gunDamage;
+    if (enemyHp <= 0) {
+        enemyHp = 0;
+        inCombat = false;
+        let reward = currentStage * 15;
+        money += reward;
+        document.getElementById('game-text').innerText = `🎉 ยิงศัตรูสำเร็จ! ได้รับโบนัส ${reward} บ.`;
+        document.getElementById('enemy-text').innerText = "";
+        document.getElementById('btn-move').style.display = 'block';
+        document.getElementById('btn-shoot').style.display = 'none';
+        updateUI();
+        return;
+    }
+
+    let dmgReceived = currentStage * 8 + Math.floor(Math.random() * 5);
+    hp -= dmgReceived;
+    if (hp <= 0) {
+        hp = 0;
+        gameOverAndGacha();
+        return;
+    }
+
+    document.getElementById('game-text').innerText = `🔫 คุณทำดาเมจใส่ศัตรู!`;
+    document.getElementById('enemy-text').innerText = `💥 ศัตรู HP: ${enemyHp}/${enemyMaxHp} | (คุณโดนสวนกลับแรง -${dmgReceived} HP)`;
+    updateUI();
+}
+
+function gameOverAndGacha() {
+    inCombat = false;
+    document.getElementById('btn-move').style.display = 'none';
+    document.getElementById('btn-shoot').style.display = 'none';
+    document.getElementById('btn-restart').style.display = 'block';
+
+    let availablePool = brainrotDatabase.filter(b => b.minStage <= currentStage);
+    let rolledWorker = availablePool[Math.floor(Math.random() * availablePool.length)];
+
+    myWorkers.push(rolledWorker);
+
+    document.getElementById('game-screen').style.backgroundColor = '#4a154b';
+    document.getElementById('game-text').innerHTML = `<span style="color:#ff3366;">💀 คุณต้านทานไม่ไหวและตายลงที่สถานที่ ${currentStage}...</span>`;
+    document.getElementById('enemy-text').innerHTML = `🎁 ระบบดึงคะแนนด่านมาสุ่มให้ทันที!<br><b style="color:#00ffcc; font-size: 20px;">[ได้รับ: ${rolledWorker.name}]</b><br>*(จะช่วยประดิษฐ์เงินให้วินาทีละ +${rolledWorker.rate} บ.)*`;
+
+    renderWorkers();
+    updateUI();
+}
+
+function renderWorkers() {
+    let listHtml = "";
+    if (myWorkers.length === 0) {
+        listHtml = `<span style="color:#888;">ยังไม่มีคนงาน... ออกไปลุยด่านหามาเพิ่มเลย!</span>`;
+    } else {
+        myWorkers.forEach((w, index) => {
+            listHtml += `<div>🤖 #${index+1} <b>${w.name}</b> (ประดิษฐ์เงิน +${w.rate} บ./วิ)</div>`;
+        });
+    }
+    document.getElementById('brainrot-workers').innerHTML = listHtml;
+}
+
+function restartGame() {
+    hp = maxHp;
+    currentStage = 1;
+    distance = 0;
+    document.getElementById('game-screen').style.backgroundColor = '#111';
+    document.getElementById('game-text').innerText = "เริ่มลุยรอบใหม่ด้วยความพร้อมที่มากกว่าเดิม!";
+    document.getElementById('enemy-text').innerText = "";
+    document.getElementById('btn-move').style.display = 'block';
+    document.getElementById('btn-restart').style.display = 'none';
+    updateUI();
+}
+
+function upgradeHp() {
+    if (money >= hpUpgradeCost) {
+        money -= hpUpgradeCost;
+        maxHp += 20;
+        hp = maxHp;
+        hpUpgradeCost = Math.floor(hpUpgradeCost * 1.5);
+        updateUI();
+    } else {
+        alert("เงินไม่พอครับ! รอพวก Brainrot ประดิษฐ์เงินให้สักครู่นะ");
+    }
+}
+
+function upgradeGun() {
+    if (money >= gunUpgradeCost) {
+        money -= gunUpgradeCost;
+        gunDamage += 5;
+        gunUpgradeCost = Math.floor(gunUpgradeCost * 1.5);
+        updateUI();
+    } else {
+        alert("เงินไม่พอครับ! รอพวก Brainrot ประดิษฐ์เงินให้ก่อน");
+    }
+}
+
+// เริ่มต้นหน้าจอ
+updateUI();
         }
     </style>
 </head>
