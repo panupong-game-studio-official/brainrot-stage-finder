@@ -10,19 +10,19 @@ body {
     overflow: hidden;
 }
 
-/* ตัวครอบระบบเกมขยายแนวนอนให้กว้างสะใจ */
+/* ตัวครอบระบบเกมแนวนอน */
 .game-widescreen {
     width: 95vw;
-    max-width: 900px; /* เพิ่มความกว้างสูงสุดขึ้นอีก */
+    max-width: 900px;
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* หน้าจอเกมสัดส่วนแนวนอน Widescreen */
+/* หน้าจอเกมสัดส่วนแนวนอน */
 .game-screen {
     width: 100%;
-    height: 380px; /* ปรับความสูงให้สมดุลและลงตัวกับจอแนวนอน */
+    height: 380px;
     position: relative;
     overflow: hidden;
     border: 4px solid #3a5f27;
@@ -31,20 +31,20 @@ body {
     box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-/* ฉากหลังป่าไม้: บังคับให้แสดงผลสัดส่วนดั้งเดิมแบบ Panorama ไม่ซูมเกินไป */
+/* ฉากหลังป่าไม้พิกเซลอาร์ต */
 .forest-bg {
-    width: 300%; /* ขยายพื้นที่แนวนอนรองรับลูปการวิ่ง */
+    width: 300%;
     height: 100%;
     background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
-    background-size: auto 100%; /* ดึงความสูงเต็มจอ และยืดความกว้างตามสัดส่วนภาพรวมที่ถูกต้อง */
-    background-repeat: repeat-x; /* สั่งให้ภาพป่าต่อกันไปเรื่อยๆ ตามแนวนอน */
+    background-size: auto 100%;
+    background-repeat: repeat-x;
     position: absolute;
     top: 0;
     left: 0;
     display: block;
 }
 
-/* ตัวละครนายพราน: ปรับตำแหน่งยืนบนพื้นผิวเนื้อดินหญ้าของจอแนวนอน */
+/* ตัวละครนายพราน (ปรับขึ้นมายืนบนทางเดินดินพอดีเป๊ะ ไม่จมพุ่มไม้) */
 .player {
     width: 65px; 
     height: 85px; 
@@ -52,8 +52,8 @@ body {
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 24px; /* ปรับตำแหน่งให้เท้าเหยียบลงบนพื้นดินด้านล่างสุดพอดีเป๊ะ ไม่ลอยขึ้นกิ่งไม้ */
-    left: 100px;  /* ขยับออกมาทางขวาเล็กน้อยเพื่อให้เข้ากับองค์ประกอบจอกว้าง */
+    bottom: 85px;  /* บังคับยกตัวละครขึ้นมาสูง 85px ให้อยู่บนพื้นดิน */
+    left: 100px;  
     z-index: 10;
 }
 
@@ -61,6 +61,7 @@ body {
     width: 100%;
 }
 
+/* ปุ่มกดควบคุม */
 button {
     width: 100%;
     padding: 18px;
@@ -68,6 +69,18 @@ button {
     font-weight: bold;
     background-color: #2e7d32;
     color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 5px #1b5e20;
+    transition: all 0.1s ease;
+}
+
+button:active {
+    background-color: #1b5e20;
+    transform: translateY(3px);
+    box-shadow: 0 2px #1b5e20;
+}
     border: none;
     border-radius: 10px;
     cursor: pointer;
