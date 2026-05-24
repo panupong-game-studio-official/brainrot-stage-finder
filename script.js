@@ -7,24 +7,24 @@ const btnAction = document.getElementById('btnAction');
 
 function toggleMovement() {
     if (!isRunning) {
-        // เปลี่ยนสถานะเป็นกำลังวิ่ง
+        // เริ่มวิ่ง
         isRunning = true;
         btnAction.innerText = "🛑 กดเพื่อให้ตัวละครหยุดวิ่ง";
-        btnAction.style.backgroundColor = "#f44336"; // เปลี่ยนปุ่มเป็นสีแดง
-        btnAction.style.boxShadow = "0 4px #b0281f";
+        btnAction.style.backgroundColor = "#c62828"; // เปลี่ยนปุ่มเป็นสีแดงตอนวิ่ง
+        btnAction.style.boxShadow = "0 5px #7f0000";
         
-        // สั่งให้ฉากหลังขยับไปทางซ้ายเรื่อยๆ ทุกๆ 20 มิลลิวินาที
+        // ฉากหลังจะสไลด์ไปทางซ้ายเรื่อยๆ เพื่อให้เกิดมิติการวิ่งไปข้างหน้า
         gameLoop = setInterval(() => {
-            bgPosition -= 5; // ความเร็วในการวิ่ง
+            bgPosition -= 6; // ความเร็วในการวิ่ง
             forestBg.style.backgroundPosition = bgPosition + 'px 0px';
         }, 20);
         
     } else {
-        // เปลี่ยนสถานะเป็นหยุดวิ่ง
+        // หยุดวิ่ง
         isRunning = false;
-        btnAction.innerText = "🏃 กดเพื่อให้ตัวละครวิ่ง";
-        btnAction.style.backgroundColor = "#4CAF50"; // เปลี่ยนกลับเป็นสีเขียว
-        btnAction.style.boxShadow = "0 4px #2e6131";
-        clearInterval(gameLoop); // ล้างลูปเพื่อให้ฉากหยุดนิ่ง
+        btnAction.innerText = "🏃 กดเพื่อให้ตัวละครวิ่งตะลุยป่า";
+        btnAction.style.backgroundColor = "#2e7d32"; // เปลี่ยนกลับเป็นสีเขียว
+        btnAction.style.boxShadow = "0 5px #1b5e20";
+        clearInterval(gameLoop);
     }
 }
