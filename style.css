@@ -45,13 +45,13 @@ body {
     left: 0;
 }
 
-/* 🕴️ โซนสร้างตัวละครสติกแมนสีดำด้วยโค้ดล้วนๆ */
+/* 🕴️ ตั้งค่าตัวครอบสติกแมนให้อยู่บนพื้นถนนพอดี */
 .player-wrapper {
     position: absolute;
-    width: 10%;
-    height: 35%;
-    bottom: 22%; /* 🎯 ดึงตำแหน่งลงมาข้างล่างสุดพอดีเป๊ะ */
-    left: 15%;
+    width: 70px;
+    height: 110px;
+    bottom: 20%; /* ระดับเท้าเหยียบพื้นพอดี */
+    left: 20%;
     z-index: 10;
 }
 
@@ -59,103 +59,130 @@ body {
     position: relative;
     width: 100%;
     height: 100%;
+    transform-origin: bottom center;
 }
 
-/* สไตล์พื้นฐานของอวัยวะ */
+/* 🎨 เพิ่มความหนาและปรับสไตล์สีดำล้วนแบบดุดัน */
 .stickman div {
-    background-color: black;
-    border-radius: 10px;
+    background-color: #000000;
     position: absolute;
 }
 
-/* ส่วนหัว */
+/* หัวกลมโตสไตล์สติกแมน */
 .head {
-    width: 40%;
-    height: 25%;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     top: 0;
-    left: 30%;
+    left: 19px;
 }
 
-/* ลำตัว */
+/* ลำตัวหนาขึ้น (เส้นหนา 8px) */
 .torso {
-    width: 10%;
-    height: 45%;
-    top: 25%;
-    left: 45%;
+    width: 8px;
+    height: 40px;
+    top: 30px;
+    left: 31px;
+    border-radius: 4px;
 }
 
-/* แขน */
+/* สไตล์โครงสร้างแขน (หนาแข็งแรง) */
 .arm {
-    width: 10%;
-    height: 45%;
-    top: 25%;
-}
-
-.arm-l {
-    left: 20%;
-    transform-origin: top center;
-    /* แขนขวาสลับจังหวะ */
-}
-
-.arm-r {
-    left: 70%;
+    width: 8px;
+    height: 22px;
+    top: 32px;
+    left: 31px;
+    border-radius: 4px;
     transform-origin: top center;
 }
+.forearm {
+    width: 8px;
+    height: 20px;
+    top: 18px;
+    border-radius: 4px;
+    transform-origin: top center;
+}
 
-/* ขา */
+/* สไตล์โครงสร้างขา */
 .leg {
-    width: 10%;
-    height: 40%;
-    top: 60%;
+    width: 8px;
+    height: 26px;
+    top: 68px;
+    left: 31px;
+    border-radius: 4px;
+    transform-origin: top center;
 }
-
-.leg-l {
-    left: 25%;
+.calf {
+    width: 8px;
+    height: 26px;
+    top: 22px;
+    border-radius: 4px;
     transform-origin: top center;
 }
 
-.leg-r {
-    left: 65%;
-    transform-origin: top center;
+/* 🏃 แอนิเมชันตอนวิ่ง: ลำตัวเอนไปข้างหน้า แขนขาขยับสลับฟันปลาแบบทรงพลัง */
+.running {
+    animation: bodyLean 0.5s infinite alternate ease-in-out;
 }
 
-/* 🔄 คำสั่งเริ่มแอนิเมชันวิ่ง (ขาขยับ) */
-.running .arm-l {
-    animation: armSwingL 0.4s infinite alternate ease-in-out;
+/* แขนหน้า แขนหลัง สับสลับกัน */
+.running .arm-front { animation: armRunFront 0.5s infinite linear; }
+.running .arm-front .forearm { animation: forearmRunFront 0.5s infinite linear; }
+.running .arm-back { animation: armRunBack 0.5s infinite linear; }
+.running .arm-back .forearm { animation: forearmRunBack 0.5s infinite linear; }
+
+/* ขาหน้า ขาหลัง สลับกันถีบส่งตัว */
+.running .leg-front { animation: legRunFront 0.5s infinite linear; }
+.running .leg-front .calf { animation: calfRunFront 0.5s infinite linear; }
+.running .leg-back { animation: legRunBack 0.5s infinite linear; }
+.running .leg-back .calf { animation: calfRunBack 0.5s infinite linear; }
+
+
+/* 🎬 คีย์เฟรมท่าวิ่งแอ็กชัน (Anger of Stick Physics) */
+@keyframes bodyLean {
+    0% { transform: rotate(12deg) translateY(0); }
+    100% { transform: rotate(15deg) translateY(3px); } /* มีจังหวะกระโดดขึ้นลงนิดๆ ตอนวิ่ง */
 }
 
-.running .arm-r {
-    animation: armSwingR 0.4s infinite alternate ease-in-out;
+/* แขนแกว่งหมัดแบบนักสู้ */
+@keyframes armRunFront {
+    0%, 100% { transform: rotate(-40deg); }
+    50% { transform: rotate(60deg); }
+}
+@keyframes forearmRunFront {
+    0%, 100% { transform: rotate(70deg); }
+    50% { transform: rotate(20deg); }
+}
+@keyframes armRunBack {
+    0%, 100% { transform: rotate(50deg); }
+    50% { transform: rotate(-50deg); }
+}
+@keyframes forearmRunBack {
+    0%, 100% { transform: rotate(30deg); }
+    50% { transform: rotate(80deg); }
 }
 
-.running .leg-l {
-    animation: legRunL 0.4s infinite alternate ease-in-out;
+/* ขาวิ่งสับเป็นวงกลม (ไม่กางเป็นไม้หนีบผ้าแล้ว) */
+@keyframes legRunFront {
+    0%, 100% { transform: rotate(-60deg); }
+    33% { transform: rotate(10deg); }
+    66% { transform: rotate(40deg); }
+}
+@keyframes calfRunFront {
+    0%, 100% { transform: rotate(30deg); }
+    33% { transform: rotate(90deg); } /* จังหวะงอเข่าตอนก้าว */
+    66% { transform: rotate(10deg); }
 }
 
-.running .leg-r {
-    animation: legRunR 0.4s infinite alternate ease-in-out;
+@keyframes legRunBack {
+    0%, 100% { transform: rotate(30deg); }
+    33% { transform: rotate(45deg); }
+    66% { transform: rotate(-50deg); }
 }
-
-/* 🎬 การกำหนดจังหวะการเคลื่อนไหวแบบสติกแมน */
-@keyframes armSwingL {
-    from { transform: rotate(-30deg); }
-    to { transform: rotate(30deg); }
-}
-
-@keyframes armSwingR {
-    from { transform: rotate(30deg); }
-    to { transform: rotate(-30deg); }
-}
-
-@keyframes legRunL {
-    from { transform: rotate(40deg) translateY(-2px); }
-    to { transform: rotate(-40deg); }
-}
-
-@keyframes legRunR {
-    from { transform: rotate(-40deg); }
-    to { transform: rotate(40deg) translateY(-2px); }
+@keyframes calfRunBack {
+    0%, 100% { transform: rotate(80deg); }
+    33% { transform: rotate(15deg); }
+    66% { transform: rotate(40deg); }
 }
 
 .controls {
