@@ -25,29 +25,30 @@ body {
     background-color: #4a6741;
 }
 
-/* ใส่รูปพื้นหลังป่าไม้ของคุณ */
+/* 🌲 ส่วนที่แก้ไข: ปรับให้เห็นภาพรวมของป่าครบถ้วน ไม่ซูมเกินไป */
 .forest-bg {
-    width: 200%;
+    width: 300%; /* เพิ่มความกว้างให้ภาพมีพื้นที่เลื่อนซ้ำได้เนียนขึ้น */
     height: 100%;
     background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
-    background-size: cover;
-    background-repeat: repeat-x;
+    background-size: contain; /* เปลี่ยนจาก cover เป็น contain เพื่อบังคับให้เห็นภาพครบทั้งแนวตั้ง */
+    background-repeat: repeat-x; /* สั่งให้รูปป่าเรียงต่อกันไปเรื่อยๆ ในแนวนอน */
     position: absolute;
     top: 0;
     left: 0;
     display: block;
 }
 
-/* ใส่รูปตัวละครนายพรานของคุณ */
+/* 🏃 ส่วนที่แก้ไข: ปรับขนาดตัวละครและขยับตำแหน่งให้ยืนบนพื้นดินพอดี */
 .player {
-    width: 90px; 
-    height: 110px; 
+    width: 65px; /* ลดขนาดตัวละครลงเล็กน้อยให้เข้ากับสัดส่วนต้นไม้ */
+    height: 80px; 
     background-image: url('https://i.postimg.cc/44m19Tpg/Background-Eraser-20260525-042731193.png');
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 25px; /* จัดให้ยืนอยู่บนพื้นหญ้าพอดี */
+    bottom: 12px; /* ปรับค่านี้ลดลงเพื่อให้ตัวละครเดินอยู่บนพื้นหญ้าด้านล่างสุด ไม่ลอยขึ้นฟ้า */
     left: 60px;
+    z-index: 10; /* มั่นใจได้ว่าตัวละครจะอยู่ข้างหน้าฉากหลังเสมอ */
 }
 
 .controls {
@@ -68,6 +69,10 @@ button {
 }
 
 button:active {
+    background-color: #3e8e41;
+    transform: translateY(2px);
+    box-shadow: 0 2px #2e6131;
+}
     background-color: #3e8e41;
     transform: translateY(2px);
     box-shadow: 0 2px #2e6131;
