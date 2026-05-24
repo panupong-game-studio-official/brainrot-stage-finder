@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Brainrot Stickman Forest Run</title>
+    <title>Anger of Stickman Run</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -16,16 +16,26 @@
             <div class="stickman" id="stickman">
                 <div class="head"></div>
                 <div class="torso"></div>
-                <div class="arm arm-l"></div>
-                <div class="arm arm-r"></div>
-                <div class="leg leg-l"></div>
-                <div class="leg leg-r"></div>
+                
+                <div class="arm arm-back">
+                    <div class="forearm"></div>
+                </div>
+                <div class="arm arm-front">
+                    <div class="forearm"></div>
+                </div>
+                
+                <div class="leg leg-back">
+                    <div class="calf"></div>
+                </div>
+                <div class="leg leg-front">
+                    <div class="calf"></div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="controls">
-        <button id="btnAction" onclick="toggleMovement()">🏃 กดเพื่อเริ่มวิ่งแบบ Stickman</button>
+        <button id="btnAction" onclick="toggleMovement()">🏃 กดเพื่อเริ่มวิ่งแบบ Anger of Stick</button>
     </div>
 </div>
 
