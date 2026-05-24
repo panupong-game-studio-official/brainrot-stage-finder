@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     padding: 0;
@@ -10,104 +14,73 @@ body {
     overflow: hidden;
 }
 
-/* ตัวครอบระบบเกมแนวนอน */
-.game-widescreen {
+/* บังคับขยายกล่องเกมให้เป็นแนวนอนยาวครอบคลุมหน้าจอมือถือ */
+.game-container {
     width: 95vw;
-    max-width: 900px;
+    max-width: 750px;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
-/* หน้าจอเกมสัดส่วนแนวนอน */
+/* ล็อกหน้าจอเกมให้เป็นอัตราส่วนภาพแนวนอน (Widescreen) */
 .game-screen {
     width: 100%;
-    height: 380px;
+    aspect-ratio: 16 / 9; /* บังคับให้เป็นจอแนวนอน 100% */
     position: relative;
     overflow: hidden;
     border: 4px solid #3a5f27;
     border-radius: 12px;
     background-color: #4a6741;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
-/* ฉากหลังป่าไม้พิกเซลอาร์ต */
+/* ฉากหลังป่าไม้: บีบให้เห็นภาพรวมของป่าครบถ้วน ไม่ซูมล้น */
 .forest-bg {
-    width: 300%;
+    width: 200%;
     height: 100%;
     background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
-    background-size: auto 100%;
+    background-size: 50% 100%; /* ล็อกภาพป่าให้สูง-กว้างพอดีสัดส่วนจอเกมแนวนอน */
     background-repeat: repeat-x;
     position: absolute;
     top: 0;
     left: 0;
-    display: block;
 }
 
-/* 🏃 ตัวละครนายพราน: เปลี่ยนมาใช้ระบบกำหนดตำแหน่งจากขอบบน (top) เพื่อความแม่นยำ */
+/* ตัวละครนายพราน: ใช้ค่า % บังคับยืนตรงทางเดินดินสีน้ำตาลพอดีเป๊ะ ไม่จมพุ่มไม้ */
 .player {
-    width: 65px; 
-    height: 85px; 
+    width: 12%; /* ปรับขนาดสเกลตามหน้าจอแนวนอน */
+    aspect-ratio: 1 / 1.3;
     background-image: url('https://i.postimg.cc/44m19Tpg/Background-Eraser-20260525-042731193.png');
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    top: 215px;  /* ✨ จุดสำคัญ: บังคับให้ตัวละครอยู่สูงจากขอบบน 215px ซึ่งเป็นระดับของทางเดินพอดีเป๊ะ */
-    left: 100px;  
+    bottom: 22%;  /* ✨ ดึงตัวละครขึ้นจากขอบล่าง 22% เพื่อให้ยืนเหยียบบนทางเดินพอดี */
+    left: 15%;   /* ขยับมาด้านขวาเล็กน้อยเพื่อให้ดูสวยงาม */
     z-index: 10;
 }
 
-.controls-area {
+.controls {
     width: 100%;
 }
 
-/* ปุ่มกดควบคุม */
 button {
     width: 100%;
-    padding: 18px;
-    font-size: 20px;
+    padding: 16px;
+    font-size: 18px;
     font-weight: bold;
     background-color: #2e7d32;
     color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 5px #1b5e20;
+    box-shadow: 0 4px #1b5e20;
     transition: all 0.1s ease;
 }
 
 button:active {
     background-color: #1b5e20;
-    transform: translateY(3px);
-    box-shadow: 0 2px #1b5e20;
-}
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px #1b5e20;
-    transition: all 0.1s ease;
-}
-
-button:active {
-    background-color: #1b5e20;
-    transform: translateY(3px);
-    box-shadow: 0 2px #1b5e20;
-}
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    box-shadow: 0 5px #1b5e20;
-    transition: all 0.1s ease;
-}
-
-button:active {
-    background-color: #1b5e20;
-    transform: translateY(3px);
-    box-shadow: 0 2px #1b5e20;
-}
-button:active {
-    background-color: #3e8e41;
     transform: translateY(2px);
-    box-shadow: 0 2px #2e6131;
+    box-shadow: 0 2px #1b5e20;
 }
