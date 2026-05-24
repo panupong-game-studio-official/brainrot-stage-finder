@@ -6,18 +6,18 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
 }
 
 .game-container {
-    width: 100%;
-    max-width: 600px;
+    width: 95%;
+    max-width: 800px; /* 🖥️ ขยายความกว้างสูงสุดของกล่องเกมให้กว้างสะใจ */
     padding: 10px;
 }
 
 .game-screen {
     width: 100%;
-    height: 320px;
+    height: 350px; /* 📐 ปรับความสูงให้สมดุลกับความกว้าง */
     position: relative;
     overflow: hidden;
     border: 4px solid #333;
@@ -25,30 +25,30 @@ body {
     background-color: #4a6741;
 }
 
-/* 🌲 ส่วนที่แก้ไข: ปรับให้เห็นภาพรวมของป่าครบถ้วน ไม่ซูมเกินไป */
+/* 🌲 ฉากหลังป่าไม้: สำหรับเกมแนวนอน */
 .forest-bg {
-    width: 300%; /* เพิ่มความกว้างให้ภาพมีพื้นที่เลื่อนซ้ำได้เนียนขึ้น */
+    width: 200%; /* เปิดพื้นที่แนวนอนสองเท่าเพื่อใช้ทำเอฟเฟกต์เลื่อนฉาก */
     height: 100%;
     background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
-    background-size: contain; /* เปลี่ยนจาก cover เป็น contain เพื่อบังคับให้เห็นภาพครบทั้งแนวตั้ง */
-    background-repeat: repeat-x; /* สั่งให้รูปป่าเรียงต่อกันไปเรื่อยๆ ในแนวนอน */
+    background-size: auto 100%; /* ✨ จุดสำคัญ: บังคับให้ความสูงพอดีกับหน้าจอ ส่วนความกว้างจะยืดออกไปตามสัดส่วนจริงของรูป ทำให้ภาพไม่ซูมล้นและไม่เพี้ยน */
+    background-repeat: repeat-x; /* สั่งให้ป่าต่อกันไปเรื่อยๆ ในแนวนอน */
     position: absolute;
     top: 0;
     left: 0;
     display: block;
 }
 
-/* 🏃 ส่วนที่แก้ไข: ปรับขนาดตัวละครและขยับตำแหน่งให้ยืนบนพื้นดินพอดี */
+/* 🏃 ตัวละครนายพราน */
 .player {
-    width: 65px; /* ลดขนาดตัวละครลงเล็กน้อยให้เข้ากับสัดส่วนต้นไม้ */
+    width: 65px; 
     height: 80px; 
     background-image: url('https://i.postimg.cc/44m19Tpg/Background-Eraser-20260525-042731193.png');
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 12px; /* ปรับค่านี้ลดลงเพื่อให้ตัวละครเดินอยู่บนพื้นหญ้าด้านล่างสุด ไม่ลอยขึ้นฟ้า */
-    left: 60px;
-    z-index: 10; /* มั่นใจได้ว่าตัวละครจะอยู่ข้างหน้าฉากหลังเสมอ */
+    bottom: 20px; /* ✨ ขยับให้เท้าเหยียบอยู่บนพื้นดินพอดีเป๊ะ */
+    left: 80px;  /* ขยับมาทางขวาอีกนิดให้ดูสมดุลกับจอแนวนอน */
+    z-index: 10;
 }
 
 .controls {
@@ -69,10 +69,6 @@ button {
 }
 
 button:active {
-    background-color: #3e8e41;
-    transform: translateY(2px);
-    box-shadow: 0 2px #2e6131;
-}
     background-color: #3e8e41;
     transform: translateY(2px);
     box-shadow: 0 2px #2e6131;
