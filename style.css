@@ -1,64 +1,74 @@
 body {
     margin: 0;
-    padding: 10px;
-    background-color: #1a1a1a;
-    color: #ffffff;
-    font-family: sans-serif;
-    text-align: center;
-    user-select: none;
-}
-.container {
-    max-width: 500px;
-    margin: 0 auto;
-    background-color: #2c2c2c;
-    padding: 15px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
-}
-h1 { color: #00ffcc; font-size: 24px; margin-bottom: 5px; }
-.stats {
-    display: flex;
-    justify-content: space-around;
-    background-color: #3d3d3d;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-    font-weight: bold;
-}
-.screen {
+    padding: 0;
     background-color: #111;
-    height: 160px;
-    border-radius: 5px;
+    font-family: sans-serif;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-bottom: 15px;
-    border: 2px solid #444;
-    padding: 10px;
+    height: 100vh;
 }
-button {
-    background-color: #00ffcc;
-    color: #000;
-    border: none;
-    padding: 12px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
+
+.game-container {
     width: 100%;
-    margin-bottom: 10px;
-}
-button:active { background-color: #00b38f; }
-button.action-btn { background-color: #ff3366; color: white; }
-button.action-btn:active { background-color: #cc0033; }
-button.upgrade-btn { background-color: #ffcc00; color: black; }
-.brainrot-list {
-    text-align: left;
-    background-color: #333;
+    max-width: 600px;
     padding: 10px;
-    border-radius: 5px;
-    max-height: 120px;
-    overflow-y: auto;
-    font-size: 14px;
+}
+
+.game-screen {
+    width: 100%;
+    height: 320px;
+    position: relative;
+    overflow: hidden;
+    border: 4px solid #333;
+    border-radius: 10px;
+    background-color: #4a6741;
+}
+
+/* ใส่รูปพื้นหลังป่าไม้ของคุณ */
+.forest-bg {
+    width: 200%;
+    height: 100%;
+    background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
+    background-size: cover;
+    background-repeat: repeat-x;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+}
+
+/* ใส่รูปตัวละครนายพรานของคุณ */
+.player {
+    width: 90px; 
+    height: 110px; 
+    background-image: url('https://i.postimg.cc/44m19Tpg/Background-Eraser-20260525-042731193.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 25px; /* จัดให้ยืนอยู่บนพื้นหญ้าพอดี */
+    left: 60px;
+}
+
+.controls {
+    margin-top: 15px;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    box-shadow: 0 4px #2e6131;
+}
+
+button:active {
+    background-color: #3e8e41;
+    transform: translateY(2px);
+    box-shadow: 0 2px #2e6131;
 }
