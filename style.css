@@ -7,67 +7,79 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    overflow: hidden;
 }
 
-.game-container {
-    width: 95%;
-    max-width: 800px; /* 🖥️ ขยายความกว้างสูงสุดของกล่องเกมให้กว้างสะใจ */
-    padding: 10px;
+/* ตัวครอบระบบเกมขยายแนวนอนให้กว้างสะใจ */
+.game-widescreen {
+    width: 95vw;
+    max-width: 900px; /* เพิ่มความกว้างสูงสุดขึ้นอีก */
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
+/* หน้าจอเกมสัดส่วนแนวนอน Widescreen */
 .game-screen {
     width: 100%;
-    height: 350px; /* 📐 ปรับความสูงให้สมดุลกับความกว้าง */
+    height: 380px; /* ปรับความสูงให้สมดุลและลงตัวกับจอแนวนอน */
     position: relative;
     overflow: hidden;
-    border: 4px solid #333;
-    border-radius: 10px;
+    border: 4px solid #3a5f27;
+    border-radius: 12px;
     background-color: #4a6741;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
 }
 
-/* 🌲 ฉากหลังป่าไม้: สำหรับเกมแนวนอน */
+/* ฉากหลังป่าไม้: บังคับให้แสดงผลสัดส่วนดั้งเดิมแบบ Panorama ไม่ซูมเกินไป */
 .forest-bg {
-    width: 200%; /* เปิดพื้นที่แนวนอนสองเท่าเพื่อใช้ทำเอฟเฟกต์เลื่อนฉาก */
+    width: 300%; /* ขยายพื้นที่แนวนอนรองรับลูปการวิ่ง */
     height: 100%;
     background-image: url('https://i.postimg.cc/9Qp9kxyT/1779658353237.png');
-    background-size: auto 100%; /* ✨ จุดสำคัญ: บังคับให้ความสูงพอดีกับหน้าจอ ส่วนความกว้างจะยืดออกไปตามสัดส่วนจริงของรูป ทำให้ภาพไม่ซูมล้นและไม่เพี้ยน */
-    background-repeat: repeat-x; /* สั่งให้ป่าต่อกันไปเรื่อยๆ ในแนวนอน */
+    background-size: auto 100%; /* ดึงความสูงเต็มจอ และยืดความกว้างตามสัดส่วนภาพรวมที่ถูกต้อง */
+    background-repeat: repeat-x; /* สั่งให้ภาพป่าต่อกันไปเรื่อยๆ ตามแนวนอน */
     position: absolute;
     top: 0;
     left: 0;
     display: block;
 }
 
-/* 🏃 ตัวละครนายพราน */
+/* ตัวละครนายพราน: ปรับตำแหน่งยืนบนพื้นผิวเนื้อดินหญ้าของจอแนวนอน */
 .player {
     width: 65px; 
-    height: 80px; 
+    height: 85px; 
     background-image: url('https://i.postimg.cc/44m19Tpg/Background-Eraser-20260525-042731193.png');
     background-size: contain;
     background-repeat: no-repeat;
     position: absolute;
-    bottom: 20px; /* ✨ ขยับให้เท้าเหยียบอยู่บนพื้นดินพอดีเป๊ะ */
-    left: 80px;  /* ขยับมาทางขวาอีกนิดให้ดูสมดุลกับจอแนวนอน */
+    bottom: 24px; /* ปรับตำแหน่งให้เท้าเหยียบลงบนพื้นดินด้านล่างสุดพอดีเป๊ะ ไม่ลอยขึ้นกิ่งไม้ */
+    left: 100px;  /* ขยับออกมาทางขวาเล็กน้อยเพื่อให้เข้ากับองค์ประกอบจอกว้าง */
     z-index: 10;
 }
 
-.controls {
-    margin-top: 15px;
+.controls-area {
+    width: 100%;
 }
 
 button {
     width: 100%;
-    padding: 15px;
-    font-size: 18px;
+    padding: 18px;
+    font-size: 20px;
     font-weight: bold;
-    background-color: #4CAF50;
+    background-color: #2e7d32;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     cursor: pointer;
-    box-shadow: 0 4px #2e6131;
+    box-shadow: 0 5px #1b5e20;
+    transition: all 0.1s ease;
 }
 
+button:active {
+    background-color: #1b5e20;
+    transform: translateY(3px);
+    box-shadow: 0 2px #1b5e20;
+}
 button:active {
     background-color: #3e8e41;
     transform: translateY(2px);
